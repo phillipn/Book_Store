@@ -1,0 +1,42 @@
+{% extends 'login/layout.html' %}
+
+{% block title %}Show{% endblock %}
+
+{% load staticfiles %}
+
+{% block content %}
+  <h3>{{ book.title }}</h3>
+  <p>Author: {{ book.author }}</p>
+  <div class="comments">
+    <h4>Comments</h4>
+    {% for review in book.review_set.all %}
+      <h5 class='comment_head'><a href="{% url 'login:profile' user_id=review.user.id %}">{{ review.user.name }}</a></h5>
+      <small>Posted on {{ review.created_at }}</small>
+      {% for i in 'xxxxx' %}
+        {% if review.rating > forloop.counter0 %}
+          <img src="{% static 'books/img/full_star.png' %}" alt="Full star">
+        {% else %}
+          <img src="{% static 'books/img/empty_star.png' %}" alt="Empty Star">
+        {% endif %}
+      {% endfor %}
+      <p>
+        {{ review.review }}
+        {% if request.session.user.id == review.user.id %}
+          <form action="{% url 'books:delete' id=review.id %}" method="post">
+            {% csrf_token %}
+            <button class='delete' type="submit">Delete</button>
+          </form>
+
+        {% endif %}
+      </p>
+    {% endfor %}
+    <div class="review_form">
+      <form action="{% url 'books:update' id=book.id %}" method="post">
+        {% csrf_token %}
+        {{ review_form.as_p }}
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

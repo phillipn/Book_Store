@@ -1,0 +1,17 @@
+{% extends 'login/layout.html' %}
+
+{% block title %}Form{% endblock %}
+
+{% block content %}
+<div class="user">
+  <p>Name: {{ user.name }}</p>
+  <p>Alias: {{ user.alias }}</p>
+  <p>Number of Reviews: {{ reviews.count }}</p>
+  <h3>Posted reviews for the following books</h3>
+  <ul>
+    {% for review in reviews %}
+      <li><a href="{% url 'books:show' id=review.book.id %}">{{ review.book.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

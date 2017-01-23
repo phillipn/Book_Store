@@ -1,0 +1,14 @@
+{% extends 'login/layout.html' %}
+
+{% block title %}New{% endblock %}
+
+{% block content %}
+  <form action="{% url 'books:create' %}" method="post">
+    {% csrf_token %}
+    {{ book_form.as_p }}
+    {{ review_form.as_p }}
+    {{ book_form.errors }}
+    {{ review_form.errors }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Book Swap | {% block title %}{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'login/css/styles.css' %}">
+  </head>
+  <body>
+    <div class="navbar">
+      {% if request.session.user %}
+      <a class='left' href="{% url 'login:profile' user_id=request.session.user.id %}">Welcome {{ request.session.user.name }}</a>
+      <a class='right' href="{% url 'login:logout' %}">Logout</a>
+      <a class='right' href="{% url 'books:new' %}">Create new book</a>
+      {% endif %}
+    </div>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+    <div class="messages">
+      {% for message in messages %}
+        <div class="{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

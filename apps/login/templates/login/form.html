@@ -1,0 +1,55 @@
+{% extends 'login/layout.html' %}
+
+{% block title %}Form{% endblock %}
+
+{% block content %}
+<div class="form">
+  <form id='login_form' action='{% url  "login:login" %}' method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="login">
+    <div class="field">
+      <label for="email">Email:</label>
+      <input type="text" name="email">
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" name="password">
+    </div>
+    <div class="submit">
+      <button type="submit" name="button">Log in</button>
+    </div>
+  </form>
+  <form id='register_form' action='{% url  "login:register" %}' method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="register">
+    <div class="field">
+      <label for="firstname">Name:</label>
+      <input type="text" name="name">
+    </div>
+    <div class="field">
+      <label for="lastname">Alias:</label>
+      <input type="text" name="alias">
+    </div>
+    <div class="field">
+      <label for="email">Email:</label>
+      <input type="text" name="email">
+    </div>
+    <div class="field">
+      <label for="password">Password:</label>
+      <input type="password" name="password">
+    </div>
+    <div class="field">
+      <label for="password_confirm">Password Confirmation:</label>
+      <input type="password" name="password_confirm">
+    </div>
+    <div class="submit">
+      <button type="submit" name="button">Register</button>
+    </div>
+  </form>
+  {% for message in messages %}
+    <div class="{{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

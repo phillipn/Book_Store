@@ -1,0 +1,5 @@
+Django==1.10.5
+django-bcrypt==0.9.2
+django-debug-toolbar==1.6
+py-bcrypt==0.4
+sqlparse==0.2.2
